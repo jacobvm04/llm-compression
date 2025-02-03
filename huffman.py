@@ -71,7 +71,7 @@ def encode_tokens(token_ids: list[int], probs_list: list[torch.Tensor]) -> bitst
     
     Args:
         token_ids: A list of token ids corresponding to each prediction.
-        probs_list: A list of probability distributions (each as a 1D torch.Tensor) corresponding to each prediction.
+        probs_list: A list of probability distributions (each as a 1D torch.Tensor) corresponding to each token.
         
     Returns:
         A bitstring.BitArray object containing the concatenated Huffman encoded sequence.

@@ -34,21 +34,6 @@ def compute_probs(input_str):
         token_ids.append(target_id)
     return tokens, token_ids, probs_list
 
-def compute_next_token(input_str, rank):
-    """
-    Computes the token following the input string whose probability has the given rank.
-    It uses the next_token_probs helper to obtain the next-token distribution.
-    """
-    probs = next_token_probs(input_str)
-    sorted_indices = torch.argsort(probs, descending=True)
-
-    if rank < 1 or rank > sorted_indices.shape[0]:
-        raise ValueError("Rank is out of bounds. It should be between 1 and the vocabulary size.")
-
-    selected_token_id = sorted_indices[rank - 1].item()
-    selected_token = tokenizer.convert_ids_to_tokens(selected_token_id)
-    return selected_token
-
 ## Helper function
 def next_token_probs(context_str):
     """
@@ -115,4 +100,4 @@ def decode(seed, encoded):
             # Update the current context.
             current_str = tokenizer.convert_tokens_to_string(decoded_tokens)
     
-    return current_str.replace("Ġ", " ")
+    return current_str.replace("Ġ", " ") # replace this odd whitespace token with a normal whitespace character
